@@ -27,7 +27,7 @@ public class Creation {
 
     public static void createNewTable() {
 
-        String url = "jdbc:sqlite:C://Dogcare.db";
+        String url = "jdbc:sqlite:Dogcare.db";
 
         String tableUser = "CREATE TABLE IF NOT EXISTS Clients (\n"
                 + " name text NOT NULL,\n"

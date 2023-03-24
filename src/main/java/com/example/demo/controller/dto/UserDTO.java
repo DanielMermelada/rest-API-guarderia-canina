@@ -6,9 +6,9 @@ import lombok.Getter;
 
 @Data
 public class UserDTO {
-    @Setter @Getter private String owner_name;
-    @Setter @Getter private String document;
-    @Setter @Getter private String address;
-    @Setter @Getter private String pet_name;
+    private String owner_name;
+    private String document;
+    private String address;
+    private String pet_name;
 }
 
