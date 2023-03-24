@@ -1,4 +1,6 @@
 package com.example.demo.database;
+import lombok.AllArgsConstructor;
+
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -6,9 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Search {
-
     private Connection connect() {
-        String url = "jdbc:sqlite:C://Dogcare.db";
+        String url = "jdbc:sqlite:Dogcare.db";
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(url);
