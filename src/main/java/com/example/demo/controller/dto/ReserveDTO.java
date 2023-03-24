@@ -6,9 +6,9 @@ import lombok.Getter;
 
 @Data
 public class ReserveDTO {
-    @Setter @Getter private String document;
-    @Setter @Getter private String pet_name;
-    @Setter @Getter private String reserve_date;
+    private String document;
+    private String pet_name;
+    private String reserve_date;
 }
 
 
