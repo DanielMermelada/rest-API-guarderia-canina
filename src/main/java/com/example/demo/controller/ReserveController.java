@@ -1,53 +1,33 @@
 package com.example.demo.controller;
-
+import com.example.demo.model.Reserve;
+import com.example.demo.service.ReserveService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.controller.dto.ReserveDTO;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.database.Search;
 
-import ch.qos.logback.core.net.server.Client;
-
-import com.example.demo.database.Addition;
-import java.util.ArrayList;
 import java.util.List;
+
 @RestController
+@RequestMapping("/reserves")
 public class ReserveController {
 
-    static List<ReserveDTO> reserves = new ArrayList<>();
-    public ReserveController(List<ReserveDTO> reserves){
+    @Autowired
+    private ReserveService reserveService;
+
+    @GetMapping
+    public List<Reserve> findAllReserves(){
+        return reserveService.findAllReserves();
     }
-    @PostMapping(path = "/guarderia/reserva")
-    public void saveClient(@RequestBody ReserveDTO reserve) {
-        if(reserves.size()<=19){
-        reserves.add(reserve);
-        Addition add = new Addition();
-        add.reserve(reserve.getReserve_date(), reserve.getPet_name(), reserve.getDocument());
-        Search application = new Search();
-		application.selectReserve();
-        }
+    @PostMapping
+    public Reserve createReserve(@RequestBody Reserve reserve){
+        return reserveService.createReserve(reserve);
     }
-    @GetMapping(path = "/guarderias/reserva/all")
-    public List<ReserveDTO> getAll(){
-        return reserves;
+    @PutMapping
+    public Reserve updateReserve(@RequestBody Reserve reserve){
+        return  reserveService.updateReserve(reserve);
     }
-    @GetMapping(path = "/guarderias/reserva")
-    public List<ReserveDTO> searchByReservedDate(@RequestParam String reserve_date){
-        List<ReserveDTO> results = new ArrayList<>();
-        for (ReserveDTO reserve : reserves) {
-            if (reserve.getReserve_date().equals(reserve_date)) {
-                results.add(reserve);
-            }
-        }
-        return results;
-    }
-    @GetMapping(path = "/guarderias/reservas")
-    public List<ReserveDTO> searchByOwnerName(@RequestParam String document){
-        List<ReserveDTO> results = new ArrayList<>();
-        for (ReserveDTO reserve : reserves) {
-            if (reserve.getDocument().equals(document)) {
-                results.add(reserve);
-            }
-        }
-        return results;
-    }
+    @GetMapping("/{document}")
+    public Reserve findReserveByDocument(@PathVariable Integer document){return reserveService.findReserveByDocument(document);}
+    @GetMapping("/{day}")
+    public Reserve findReserveByDay(@PathVariable Integer day){return reserveService.findReserveByDay(day);}
 }
